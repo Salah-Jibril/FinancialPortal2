@@ -1,0 +1,34 @@
+﻿<div class="container col-md-12" ng-controller="categoriesController">
+        <div class="pageheader">
+            Category<button type="submit" class="btn pull-right" ng-click="showCreate()" title="Create a Category"><i class="fa fa-plus"></i></button>
+        </div>
+    <div style="margin-top:50px">
+        <div class="well col-md-4" ng-show="showcreate">
+            <h2>{{title.createcategorytitle}}</h2>
+            <hr />
+            <input type="text" placeholder="Name" ng-model="categoryName" style="width:180px" />
+            <button type="submit" class="btn pull-right" ng-click="hideCreate()"><i class="fa fa-times"></i></button>
+            <button type="submit" class="btn pull-right" ng-click="createCategory()" title="Create"><i class="fa fa-plus"></i></button>
+        </div>
+        <div class="well col-md-4" ng-show="showedit">
+            <h2>{{title.editcategorytitle}}</h2>
+            <hr />
+            <input type="text" placeholder="Name" ng-model="editName" style="width:180px" />
+            <button type="submit" class="btn btn-default" ng-click="editCategory()" title="Edit"><i class="fa fa-pencil"></i></button>
+            <button type="submit" class="btn" ng-click="hideEdit()" title="Cancel"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="col-md-4" ng-show="showcat">
+            <div class="panel panel-default" style="width:100%">
+                <div class="panel-heading">
+                    <h2>Your Categories</h2>
+                </div>
+                <div class="panel-body" ng-repeat="category in categories">
+                    {{category.Name}}
+                    <button class="btn btn-danger pull-right" ng-click="deleteCategory(category.Id)" title="Delete"><i class="fa fa-times"></i></button>
+                    <button class="btn btn-default pull-right" ng-click="geteditCategory(category.Id)" title="Edit"><i class="fa fa-pencil"></i></button>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

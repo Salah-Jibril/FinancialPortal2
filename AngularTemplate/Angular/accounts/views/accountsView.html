@@ -1,0 +1,171 @@
+﻿<div ng-controller="accountsController">
+    <div class="col-md-4">
+        <div class="pageheader">
+            Accounts<button type="submit" class="btn pull-right" ng-click="showCreateA()"><i class="fa fa-plus"></i></button>
+        </div>
+        <div class="well" ng-show="showcreateA">
+            <h2>{{title.createaccounttitle}}</h2>
+            <hr />
+            <input type="text" placeholder="Name" ng-model="accountName" style="width:180px"/>
+            <button type="submit" class="btn" ng-click="createAccount()" title="Create"><i class="fa fa-plus"></i></button>
+            <button type="submit" class="btn pull-right" ng-click="hideCreateA()"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="well" ng-show="showedit">
+            <h2>{{title.editaccounttitle}}</h2>
+            <hr />
+            <input type="text" placeholder="Name" ng-model="editName" style="width:180px"/>
+            <button type="submit" class="btn btn-default" ng-click="editAccount()" title="Edit"><i class="fa fa-pencil"></i></button>
+            <button type="submit" class="btn" ng-click="hideEdit()" title="Cancel"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {{title.accounttitle}}
+                    </h3>
+                    <div class="actions pull-right">
+                        <i data-fullscreen-widget="" class="fa fa-expand"></i>
+                        <i data-widget-toggle="" class="fa fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div ng-repeat="account in accounts">
+                        {{account.Name}}
+                        <button class="btn btn-danger pull-right" ng-click="deleteAccount(account.Id)" title="Delete"><i class="fa fa-times"></i></button>
+                        <button class="btn btn-default pull-right" ng-click="geteditAccount(account.Id)" title="Edit"><i class="fa fa-pencil"></i></button>
+                        <hr />
+                        <p>Balance: {{account.Balance | currency :'$'}}</p>
+                        <p>Reconciled: {{ account.ReconciledBalance | currency :'$'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-8" ng-controller="transactionsController">
+    <div class="pageheader">
+        Transactions<button type="submit" class="btn pull-right" ng-click="showCreate()"><i class="fa fa-plus"></i></button>
+    </div>
+    <div class="well col-md-6" ng-show="showcreate">
+        <div>
+            <h2>
+                {{title.createtransactiontitle}}                        
+            </h2>
+            <hr />
+            <div class="row">
+                <div ng-repeat="type in ttype" class="col-md-6">
+                    <input type="radio" name="TransactionType" ng-model="$parent.type" ng-value="type" />{{type}}
+                </div>
+            </div>
+            <div class="row">
+                <p class="col-md-6">Category: <select ng-model="selectedc" ng-options="category as category.Name for category in categories"></select></p>
+                <p class="col-md-6">Account: <select ng-model="accountId" ng-options="account.Id as account.Name for account in accounts"></select></p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="input-group" style="width:250px">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="tDate" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <p><input type="text" placeholder="Description" ng-model="description" style="width:250px" /></p>
+            <p><input type="text" placeholder="Amount" ng-model="amount" /></p>
+            <p>
+                <input type="text" placeholder="Reconciled Amount" ng-model="reconciled">
+                <button type="submit" class="btn pull-right" ng-click="hideCreate()"><i class="fa fa-times"></i></button>
+                <button type="submit" class="btn pull-right" ng-click="createTransaction()"><i class="fa fa-plus"></i></button>
+            </p>
+        </div>
+    </div>
+    <div class="well col-md-6" ng-show=showedit>
+        <div>
+            <h2>
+                {{title.edittransactiontitle}}
+            </h2>
+            <hr />
+            <div class="row">
+                <p class="col-md-6">Category: <select ng-model="selectedTransaction.CategoryId" ng-options="category.Id as category.Name for category in categories"></select></p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="input-group" style="width:250px">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="selectedTransaction.Date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <p><input type="text" placeholder="Description" ng-model="selectedTransaction.Description" style="width:250px" /></p>
+            <p>Amount: <input type="text" placeholder="Amount" ng-model="selectedTransaction.Amount" /></p>
+            <p>Reconciled: <input type="text" placeholder="Reconciled Amount" ng-model="selectedTransaction.ReconciledAmount"></p>
+            <p>Last Updated: {{selectedTransaction.Updated | date:'MM/dd/yyyy'}}</p>
+            <p>
+                By: {{selectedTransaction.User}}
+                <button type="submit" class="btn pull-right" ng-click="hideEdit()"><i class="fa fa-times"></i></button>
+                <button type="submit" class="btn pull-right" ng-click="editTransaction()"><i class="fa fa-pencil"></i></button>
+            </p>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading col-md-12">
+            <h3 class="panel-title">Account: <select ng-model="showaccountId" ng-options="account.Id as account.Name for account in accounts" ng-change="getTransactionsByA()"></select></h3>
+            <div class="actions pull-right">
+                <i data-fullscreen-widget="" class="fa fa-expand"></i>
+                <i data-widget-toggle="" class="fa fa-chevron-down"></i>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="transactiontable table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Reconciled
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="transaction in Transactions">
+                        <td>
+                            {{transaction.CategoryName}}
+                        </td>
+                        <td>
+                            {{transaction.Description}}
+                        </td>
+                        <td>
+                            {{transaction.Date | date:'MM/dd/yyyy'}}
+                        </td>
+                        <td>
+                            {{transaction.Amount | currency :'$'}}
+                        </td>
+                        <td>
+                            {{transaction.ReconciledAmount | currency :'$'}}
+                        </td>
+                        <td>
+                            <button class="btn btn-default" ng-click="geteditTransaction($index); getTransactionById(transaction.Id)"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger" ng-click="deleteTransaction(transaction.Id)"><i class="fa fa-times"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

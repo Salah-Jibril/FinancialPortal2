@@ -1,0 +1,38 @@
+﻿<div class="pageheader" >
+    <h1>Welcome Back To Your Household</h1>
+</div>
+<div class="col-md-12">
+    <div class="panel panel-default " ng-controller="dashboardController">
+        <div class="panel-heading col-md-12">
+            <h3 class="panel-title">
+                Your Accounts
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div ng-repeat="account in accounts" class="col-md-3">
+                {{account.Name}}
+                <hr />
+                <p>Balance: {{account.Balance | currency :'$'}}</p>
+                <p>Reconciled: {{ account.ReconciledBalance | currency :'$'}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h3 class="panel-title">Budgets</h3>
+            <div class="actions pull-right">
+                <i data-fullscreen-widget="" class="fa fa-expand"></i>
+                <i data-widget-toggle="" class="fa fa-chevron-down"></i>
+            </div>
+        </div>
+        <div class="panel-body" style="width:100%">
+            <chartdirective xkey="zxkey" ykey="zykey" labels="zlabels" data="zdata">
+            </chartdirective>
+        </div>
+    </div>
+</div>
+<div class="col-md-8">
+    <transactiontable></transactiontable>
+</div>

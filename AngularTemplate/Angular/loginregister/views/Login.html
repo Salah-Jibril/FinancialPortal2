@@ -1,0 +1,59 @@
+﻿<div class="single-widget-container" ng-controller="loginController">
+    <div class="pageheader">
+        Login
+    </div>
+    <div class="well col-md-4" style="margin: 60px 300px">
+        <section class="widget login-widget">
+            <header class="text-align-center">
+                <div ng-hide="message == ''" ng-class="(isError) ? 'alert alert-danger' : ''" style="padding:5px; margin-bottom:-15px;">
+                    <h4>{{message}}</h4>
+                </div>
+                <hr />
+            </header>
+            <div class="body">
+                <form class="form-login no-margin" role="form">
+                    <fieldset>
+                        <div class="form-group no-margin">
+                            <label for="username">Username</label>
+
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input id="username" type="text" data-ng-model="loginData.userName" class="form-control input-lg"
+                                       placeholder="Username">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                                <input id="password" type="password" data-ng-model="loginData.password" class="form-control input-lg"
+                                       placeholder="Password">
+                            </div>
+
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-block btn-lg btn-danger" data-ng-click="login()">
+                            <span class="small-circle"><i class="fa fa-caret-right"></i></span>
+                            <small>Sign In</small>
+                        </button>
+                        <button type="submit" class="btn btn-block btn-lg btn-success" data-ng-click="guestlogin()">
+                            <span class="small-circle"><i class="fa fa-user"></i></span>
+                            <small>Login as Demo-user</small>
+                        </button>
+                        <div class="forgot"><a class="forgot" href="#/forgotPassword">Forgot Password?</a></div>
+                        <div class="forgot"><a class="forgot" href="#/register">Register a new account</a></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+

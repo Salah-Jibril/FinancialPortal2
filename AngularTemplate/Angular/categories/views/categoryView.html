@@ -1,0 +1,41 @@
+﻿<div class="well" ng-controller="categoriesController">
+    <div>
+        <h2>{{title.createcategorytitle}}</h2>
+        <hr />
+        <input type="text" placeholder="Name" ng-model="categoryName" />
+        <input type="submit" class="btn" ng-click="createCategory()" value="Submit" />
+    </div>
+    <br />
+    <hr />
+    <div>
+        <h2>{{title.categorytitle}}</h2>
+        <hr />
+        <table class="table-bordered table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+            <tr ng-repeat="category in categories">
+                <td>
+                    {{category.Name}}
+                </td>
+                <td>
+                    <button class="btn btn-default" ng-click="geteditCategory(category.Id)">Edit</button>
+                    <button class="btn btn-danger" ng-click="deleteCategory(category.Id)">Delete</button>
+                </td>
+            </tr>
+            <tr ng-show=showedit>
+                <td><input type="text" placeholder="Name" ng-model="editName" /></td>
+                <td>
+                    <input type="submit" class="btn" ng-click="editCategory()" value="Submit" />
+                    <input type="submit" class="btn" ng-click="hideEdit()" value="Cancel" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

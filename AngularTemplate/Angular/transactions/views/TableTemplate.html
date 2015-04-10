@@ -1,0 +1,51 @@
+﻿<div class="panel panel-default">
+        <div class="panel-heading col-md-12">
+            <h3 class="panel-title">Your Recent Transactions</h3>
+            <div class="actions pull-right">
+                <i data-fullscreen-widget="" class="fa fa-expand"></i>
+                <i data-widget-toggle="" class="fa fa-chevron-down"></i>
+            </div>
+        </div>
+    <div class="panel-body">
+        <table class="transactiontable table table-striped table-bordered" data-table="">
+            <thead>
+                <tr>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Reconciled
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="transaction in Transactions">
+                    <td>
+                        {{transaction.CategoryName}}
+                    </td>
+                    <td>
+                        {{transaction.Description}}
+                    </td>
+                    <td>
+                        {{transaction.Date | date:'MM/dd/yyyy'}}
+                    </td>
+                    <td>
+                        {{transaction.Amount | currency :'$'}}
+                    </td>
+                    <td>
+                        {{transaction.ReconciledAmount | currency :'$'}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

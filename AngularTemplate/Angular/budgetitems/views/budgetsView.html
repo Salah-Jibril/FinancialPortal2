@@ -1,0 +1,114 @@
+﻿<div ng-controller="budgetItemsController">
+    <div class="pageheader">
+        Bugdet<button type="submit" class="btn pull-right" ng-click="showCreate()"><i class="fa fa-plus"></i></button>
+    </div>
+    <div class="well col-md-6" ng-show="showcreate">
+        <h2>{{title.createbudgetitemtitle}}</h2>
+        <hr />
+        <div class="row">
+            <div ng-repeat="budgettype in budgettypes" class="col-md-6">
+                <input type="radio" name="BudgetType" ng-model="$parent.budgetType" ng-value="budgettype" />{{budgettype}}
+            </div>
+        </div>
+        <div class="row">
+            <p class="col-md-6">Category: <select ng-model="selectedCategory" ng-options="category as category.Name for category in categories"></select></p>
+        </div>
+        <p>Period of budget: <input type="text" placeholder="Annual Period" ng-model="period" /></p>
+        <span style="font-size:10px; color:grey">enter the number of months in your period. use decimals for fractions</span><br />
+        <p><input type="text" placeholder="Description" ng-model="description" style="width:250px" /></p>
+        <p>
+            <input type="text" placeholder="Amount" ng-model="amount" />
+            <button type="submit" class="btn pull-right" ng-click="hideCreate()"><i class="fa fa-times"></i></button>
+            <button type="submit" class="btn pull-right" ng-click="createBudgetItem()"><i class="fa fa-plus"></i></button>
+        </p>
+    </div>
+    <div class="well col-md-6" ng-show=showedit>
+        <div>
+            <h2>
+                {{title.editbudgetitemtitle}}
+            </h2>
+            <hr />
+            <div class="row">
+                <p class="col-md-6">Category: <select ng-model="selectedCategory" ng-options="category as category.Name for category in categories"></select></p>
+            </div>
+            <p>Period of budget: <input type="text" placeholder="Annual Period" ng-model="period" /></p>
+            <span style="font-size:10px; color:grey">enter the number of months in your period. use decimals for fractions</span><br />
+            <p>Description:<input type="text" placeholder="Description" ng-model="editDescription" style="width:200px" /></p>
+            <p>
+                Amount: <input type="text" placeholder="Amount" ng-model="editAmount" style="width:150px"/>
+                <button type="submit" class="btn pull-right" ng-click="hideEdit()"><i class="fa fa-times"></i></button>
+                <button type="submit" class="btn pull-right" ng-click="editBudgetItem()"><i class="fa fa-pencil"></i></button>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6" style="margin-top:30px" >
+        <h2>{{title.budgetitemtitleI}}</h2>
+        <hr />
+        <table class="table-bordered table" style="font-size:small;">
+            <tr>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Monthly Amount
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+            <tr ng-repeat="incomebudget in incomebudgets">
+                <td>
+                    {{incomebudget.Category}}
+                </td>
+                <td>
+                    {{incomebudget.Description}}
+                </td>
+                <td>
+                    {{incomebudget.Amount | currency :'$'}}
+                </td>
+                <td>
+                    <button class="btn btn-default" ng-click="geteditBudgetItem(incomebudget.Id)"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger" ng-click="deleteBudgetItem(incomebudget.Id)"><i class="fa fa-times"></i></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6" style="margin-top:30px">
+        <h2>{{title.budgetitemtitleE}}</h2>
+        <hr />
+        <table class="table-bordered table" style="font-size:small;">
+            <tr>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Monthly Amount
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+            <tr ng-repeat="expensebudget in expensebudgets">
+                <td>
+                    {{expensebudget.Category}}
+                </td>
+                <td>
+                    {{expensebudget.Description}}
+                </td>
+                <td style="width:100px">
+                    {{expensebudget.Amount | currency :'$'}}
+                </td>
+                <td>
+                    <button class="btn btn-default" ng-click="geteditBudgetItem(expensebudget.Id)"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger" ng-click="deleteBudgetItem(expensebudget.Id)"><i class="fa fa-times"></i></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

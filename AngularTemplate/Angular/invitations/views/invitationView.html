@@ -1,0 +1,74 @@
+﻿<div class="single-widget-container" ng-controller="invitationsController">
+    <div class="pageheader">
+        Household<button type="submit" style="padding-bottom:15px;" class="btn pull-right" ng-click="showCreate()"><i class="fa fa-plus"></i></button><button type="submit" class="btn btn-danger pull-right" ng-click="showLeave()">Leave your household</button>
+    </div>
+    <div class="well col-md-4" style="margin: 20px 20px" ng-show="showcreate">
+        <section class="widget login-widget">
+            <header class="text-align-center">
+                    <h2>{{title.createinvitationtitle}}
+                        <button type="submit" class="btn pull-right" ng-click="hideCreate()"><i class="fa fa-times"></i></button></h2>
+                <div ng-hide="message == ''" ng-class="(isError) ? 'alert alert-danger' : ''" style="padding:5px; margin-bottom:-15px;">
+                    <h2>{{message}}</h2>
+                    <hr />
+                </div>
+            </header>
+            <div class="body">
+                <form class="form-login no-margin" role="form" name="inviteForm">
+                    <fieldset>
+                        <div class="form-group no-margin">
+                            <label for="password">Email</label>
+
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <input id="email" name="email" type="email" required data-ng-model="invitationItem.ToEmail" class="form-control input-lg"
+                                       placeholder="Email">
+                            </div>
+                            <span ng-show="inviteForm.email.$error.required">
+                                Email is required
+                            </span>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-block btn-lg btn-danger" data-ng-click="createInvitation()" data-ng-disabled="inviteForm.$invalid">
+                            <span class="small-circle"><i class="fa fa-caret-right"></i></span>
+                            <small>Send Invite</small>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-4" style="margin-top:10px">
+        <h2>{{title.invitationtitle}}</h2>
+        <hr />
+        <table class="table-bordered table">
+            <tr>
+                <th>
+                    Sent By
+                </th>
+                <th>
+                    Sent To
+                </th>
+            </tr>
+            <tr ng-repeat="invite in invites">
+                <td>
+                    {{invite.UserName}}
+                </td>
+                <td>
+                    {{invite.ToEmail}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="well col-md-4" ng-show="showleave">
+        <h2>Note that if you are the last person to leave the household you will not be able to return to it at a later time
+            
+        </h2>
+        <button type="submit" class="btn pull-right" style="padding-bottom:15px;" ng-click="hideLeave()" title="Cancel"><i class="fa fa-times"></i></button>
+        <button type="submit" class="btn btn-danger pull-right" ng-click="leaveHousehold()">Leave</button>
+    </div>
+</div>
+
+
